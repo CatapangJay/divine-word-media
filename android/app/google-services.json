@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "476332592558",
+    "firebase_url": "https://divine-word-media-f8260.firebaseio.com",
+    "project_id": "divine-word-media-f8260",
+    "storage_bucket": "divine-word-media-f8260.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476332592558:android:64ae4b4dba0120973ccc3f",
+        "android_client_info": {
+          "package_name": "com.divinewordmedia.divine_word_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476332592558-1ia5d4hq71kk41t0rhrsgioiqkq8rbb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCCycpfBQx9sFEYBDe5E1EsBQwDOxc7aQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476332592558-1ia5d4hq71kk41t0rhrsgioiqkq8rbb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
