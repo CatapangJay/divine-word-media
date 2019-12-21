@@ -1,3 +1,4 @@
+import 'package:divine_word_app/models/article.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +12,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var data;
   final firestore = Firestore.instance;
   List<DocumentSnapshot> articles = [];
+  List<Article> articles2 = [];
   bool isLoading = false; // track if products fetching
   bool hasMore = true; // flag for more products available or not
   int documentLimit = 10; // documents to be fetched per request
@@ -44,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
-    print("Smape");
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await firestore
