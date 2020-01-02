@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Article {
   final String id;
@@ -17,11 +16,13 @@ class Article {
       this.imageUrl,
       this.author});
 
-  Article.fromMap(Map<String, dynamic> data, String id)
-      : this(
-            id: id,
-            header: data['header'],
-            body: data['body'],
-            imageUrl: data['imageurl'],
-            author: data['author']);
+  factory Article.fromDocument(DocumentSnapshot document)
+  {
+    return Article(
+        id: document.documentID,
+        header: document['header'],
+        body: document['body'],
+        imageUrl: document['imageurl'],
+        author: document['author']);
+  }
 }

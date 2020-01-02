@@ -106,7 +106,9 @@ class _DivineWordState extends State<DivineWordMainApp>
                 icon: Icon(Icons.library_books), title: Text('Shop'))
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: Theme
+              .of(context)
+              .accentColor,
           onTap: _onItemTapped,
         ));
   }
