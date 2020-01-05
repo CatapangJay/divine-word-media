@@ -58,7 +58,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
         SliverAppBar(
           pinned: true,
           iconTheme:
-          IconThemeData(color: isShrink ? Colors.black : Colors.white),
+              IconThemeData(color: isShrink ? Colors.black : Colors.white),
           actions: <Widget>[
             new GestureDetector(
               child: Padding(
@@ -77,10 +77,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   )),
             ),
           ],
-          backgroundColor: Theme
-              .of(context)
-              .appBarTheme
-              .color,
+          backgroundColor: Theme.of(context).appBarTheme.color,
           expandedHeight: 200.0,
           flexibleSpace: FlexibleSpaceBar(
             background: new Image.network(

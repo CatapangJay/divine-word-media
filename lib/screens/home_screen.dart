@@ -129,38 +129,37 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             new Expanded(
                 child: new Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    new Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
-                        child: new Text(
-                          article.author,
-                          style: TextStyle(
-                              fontSize: 15.0, fontWeight: FontWeight.bold),
-                        ),
-                      ),
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                new Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
+                    child: new Text(
+                      article.author,
+                      style: TextStyle(
+                          fontSize: 15.0, fontWeight: FontWeight.bold),
                     ),
-                    new GestureDetector(
-                      child: Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, left: 7.0, right: 10.0),
-                          child: new Icon(
-                            Icons.bookmark_border,
-                          )),
-                    ),
-                    new GestureDetector(
-                      child: Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, right: 8.0),
-                          child: new Icon(
-                            Icons.share,
-                          )),
-                    )
-                  ],
-                ))
+                  ),
+                ),
+                new GestureDetector(
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 8.0, left: 7.0, right: 10.0),
+                      child: new Icon(
+                        Icons.bookmark_border,
+                      )),
+                ),
+                new GestureDetector(
+                  child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0, right: 8.0),
+                      child: new Icon(
+                        Icons.share,
+                      )),
+                )
+              ],
+            ))
           ],
         ),
       ),
@@ -170,9 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomPadding: false,
       body: Center(
         child: Column(
@@ -181,30 +178,30 @@ class _HomeScreenState extends State<HomeScreen> {
               child: isLoading
                   ? const Center(child: const CircularProgressIndicator())
                   : articles.length != 0
-                  ? new ListView.builder(
-                  itemCount: articles.length,
-                  padding: new EdgeInsets.all(8.0),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        height: 330.0,
-                        child: createCard(articles[index]));
-                  })
-                  : new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Column(
-                    children: <Widget>[
-                      new Icon(Icons.chrome_reader_mode,
-                          color: Colors.grey, size: 60),
-                      new Text(
-                        "No articles available",
-                        style: new TextStyle(
-                            fontSize: 15.0, color: Colors.grey),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                      ? new ListView.builder(
+                          itemCount: articles.length,
+                          padding: new EdgeInsets.all(8.0),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                height: 330.0,
+                                child: createCard(articles[index]));
+                          })
+                      : new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Column(
+                              children: <Widget>[
+                                new Icon(Icons.chrome_reader_mode,
+                                    color: Colors.grey, size: 60),
+                                new Text(
+                                  "No articles available",
+                                  style: new TextStyle(
+                                      fontSize: 15.0, color: Colors.grey),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
             ),
           ],
         ),
