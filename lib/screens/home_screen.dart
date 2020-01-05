@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'article_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -87,10 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ArticleScreen(article))
-          );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ArticleScreen(article)));
         },
         child: new Column(
           children: <Widget>[
@@ -138,8 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
                         child: new Text(
                           article.author,
-                          style:
-                          TextStyle(
+                          style: TextStyle(
                               fontSize: 15.0, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -171,8 +170,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme
+          .of(context)
+          .backgroundColor,
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.grey[200],
       body: Center(
         child: Column(
           children: <Widget>[
@@ -180,30 +181,30 @@ class _HomeScreenState extends State<HomeScreen> {
               child: isLoading
                   ? const Center(child: const CircularProgressIndicator())
                   : articles.length != 0
-                      ? new ListView.builder(
-                          itemCount: articles.length,
-                          padding: new EdgeInsets.all(8.0),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                height: 330.0,
-                                child: createCard(articles[index]));
-                          })
-                      : new Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Column(
-                              children: <Widget>[
-                                new Icon(Icons.chrome_reader_mode,
-                                    color: Colors.grey, size: 60),
-                                new Text(
-                                  "No articles available",
-                                  style: new TextStyle(
-                                      fontSize: 15.0, color: Colors.grey),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                  ? new ListView.builder(
+                  itemCount: articles.length,
+                  padding: new EdgeInsets.all(8.0),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        height: 330.0,
+                        child: createCard(articles[index]));
+                  })
+                  : new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Column(
+                    children: <Widget>[
+                      new Icon(Icons.chrome_reader_mode,
+                          color: Colors.grey, size: 60),
+                      new Text(
+                        "No articles available",
+                        style: new TextStyle(
+                            fontSize: 15.0, color: Colors.grey),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ],
         ),

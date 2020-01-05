@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:divine_word_app/screens/home_screen.dart' as home;
 import 'package:divine_word_app/screens/videos_screen.dart' as videos;
 import 'package:divine_word_app/screens/shop_screen.dart' as shop;
-
+import 'package:divine_word_app/screens/saved_screen.dart' as saved;
 
 void main() => runApp(DivineWordApp());
 
@@ -14,9 +14,12 @@ class DivineWordApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       theme: new ThemeData(
+          brightness: Brightness.light,
           primarySwatch: Colors.blue,
           primaryColor: Colors.black,
           primaryIconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Colors.grey[200],
+          appBarTheme: AppBarTheme(color: Colors.white),
           primaryTextTheme: TextTheme(
               title: TextStyle(color: Colors.black, fontFamily: "Aveny")),
           textTheme: TextTheme(title: TextStyle(color: Colors.black))),
@@ -36,6 +39,7 @@ class _DivineWordState extends State<DivineWordMainApp>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
   static GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final PageStorageBucket bucket = PageStorageBucket();
 
   final topBar = new AppBar(
     backgroundColor: new Color(0xfff8faf8),
@@ -73,10 +77,11 @@ class _DivineWordState extends State<DivineWordMainApp>
     ),
   );
 
-  static List<Widget> _widgetOptions = <Widget>[
-    home.HomeScreen(),
+  final List<Widget> pages = <Widget>[
+    home.HomeScreen(key: PageStorageKey('Home')),
     videos.VideosScreen(),
     shop.ShopScreen(),
+    saved.SavedScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -92,18 +97,25 @@ class _DivineWordState extends State<DivineWordMainApp>
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.grey[200],
         appBar: topBar,
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+        body: PageStorage(
+          child: pages[_selectedIndex],
+          bucket: bucket,
         ),
+//        body: Center(
+//          child: _widgetOptions.elementAt(_selectedIndex),
+//        ),
         drawer: drawer,
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.video_library), title: Text('Videos')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.library_books), title: Text('Shop'))
+                icon: Icon(Icons.library_books), title: Text('Shop')),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.bookmark), title: Text('Saved'))
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Theme
