@@ -6,8 +6,8 @@ class Article {
   final String subHeader;
   final String body;
   final String imageUrl;
-  final String publishDate;
   final String author;
+  final Timestamp publishDate;
 
   const Article(
       {this.id,
@@ -15,8 +15,8 @@ class Article {
       this.subHeader,
       this.body,
       this.imageUrl,
-        this.publishDate,
-      this.author});
+      this.author,
+      this.publishDate});
 
   factory Article.fromDocument(DocumentSnapshot document) {
     return Article(
@@ -24,7 +24,7 @@ class Article {
         header: document['header'],
         body: document['body'],
         imageUrl: document['imageurl'],
-        publishDate: document['publishdate'],
-        author: document['author']);
+        author: document['author'],
+        publishDate: document['publishdate']);
   }
 }

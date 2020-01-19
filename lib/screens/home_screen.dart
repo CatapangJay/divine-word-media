@@ -2,6 +2,7 @@ import 'package:divine_word_app/models/article.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 import 'article_screen.dart';
 
@@ -138,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
                     child: new Text(
                       article.author,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.bold),
                     ),
@@ -166,6 +168,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  String formatDate(Timestamp date) {
+    return new DateFormat('E, MMMMd').format(date.toDate());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,9 +188,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: articles.length,
                           padding: new EdgeInsets.all(8.0),
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                height: 330.0,
-                                child: createCard(articles[index]));
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(new DateFormat('EEEE, MMMM d').format(
+                                    articles[index].publishDate.toDate())),
+                                Container(
+                                    height: 330.0,
+                                    child: createCard(articles[index])),
+                              ],
+                            );
                           })
                       : new Column(
                           mainAxisAlignment: MainAxisAlignment.center,
