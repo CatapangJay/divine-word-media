@@ -6,6 +6,7 @@ class Article {
   final String subHeader;
   final String body;
   final String imageUrl;
+  final String publishDate;
   final String author;
 
   const Article(
@@ -14,15 +15,16 @@ class Article {
       this.subHeader,
       this.body,
       this.imageUrl,
+        this.publishDate,
       this.author});
 
-  factory Article.fromDocument(DocumentSnapshot document)
-  {
+  factory Article.fromDocument(DocumentSnapshot document) {
     return Article(
         id: document.documentID,
         header: document['header'],
         body: document['body'],
         imageUrl: document['imageurl'],
+        publishDate: document['publishdate'],
         author: document['author']);
   }
 }
