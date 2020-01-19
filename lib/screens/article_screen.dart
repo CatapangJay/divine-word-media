@@ -110,7 +110,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     child: new Divider(),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                     child: new Text(
                       _article.body.replaceAll("\\n", "\n"),
                       style: TextStyle(

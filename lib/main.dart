@@ -3,6 +3,7 @@ import 'package:divine_word_app/screens/home_screen.dart' as home;
 import 'package:divine_word_app/screens/videos_screen.dart' as videos;
 import 'package:divine_word_app/screens/shop_screen.dart' as shop;
 import 'package:divine_word_app/screens/saved_screen.dart' as saved;
+import 'package:divine_word_app/screens/more_screen.dart' as more;
 
 void main() => runApp(DivineWordApp());
 
@@ -42,13 +43,13 @@ class _DivineWordState extends State<DivineWordMainApp>
   final PageStorageBucket bucket = PageStorageBucket();
 
   final topBar = new AppBar(
-    backgroundColor: new Color(0xfff8faf8),
+//    backgroundColor: new Color(0xfff8faf8),
     centerTitle: true,
     elevation: 1.0,
-    leading: new IconButton(
-      icon: new Icon(Icons.menu),
-      onPressed: () => _scaffoldKey.currentState.openDrawer(),
-    ),
+//    leading: new IconButton(
+//      icon: new Icon(Icons.menu),
+//      onPressed: () => _scaffoldKey.currentState.openDrawer(),
+//    ),
     title: Text('Divine Word Media'),
     actions: <Widget>[
       Padding(
@@ -81,7 +82,8 @@ class _DivineWordState extends State<DivineWordMainApp>
     home.HomeScreen(key: PageStorageKey('Home')),
     videos.VideosScreen(),
     shop.ShopScreen(),
-    saved.SavedScreen()
+    saved.SavedScreen(),
+    more.MoreScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -104,7 +106,7 @@ class _DivineWordState extends State<DivineWordMainApp>
 //        body: Center(
 //          child: _widgetOptions.elementAt(_selectedIndex),
 //        ),
-        drawer: drawer,
+//        drawer: drawer,
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
@@ -115,7 +117,8 @@ class _DivineWordState extends State<DivineWordMainApp>
             BottomNavigationBarItem(
                 icon: Icon(Icons.library_books), title: Text('Shop')),
             BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark), title: Text('Saved'))
+                icon: Icon(Icons.bookmark), title: Text('Saved')),
+            BottomNavigationBarItem(icon: Icon(Icons.menu), title: Text('More'))
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Theme
