@@ -54,11 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (lastDocument == null) {
       querySnapshot = await firestore
           .collection('articles')
+          .orderBy('publishdate', descending: true)
           .limit(documentLimit)
           .getDocuments();
     } else {
       querySnapshot = await firestore
           .collection('articles')
+          .orderBy('publishdate', descending: true)
           .startAfterDocument(lastDocument)
           .limit(documentLimit)
           .getDocuments();

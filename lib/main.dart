@@ -121,9 +121,7 @@ class _DivineWordState extends State<DivineWordMainApp>
             BottomNavigationBarItem(icon: Icon(Icons.menu), title: Text('More'))
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Theme
-              .of(context)
-              .accentColor,
+          selectedItemColor: Theme.of(context).accentColor,
           onTap: _onItemTapped,
         ));
   }

@@ -24,7 +24,7 @@ class Article {
         header: document['header'],
         body: document['body'],
         imageUrl: document['imageurl'],
-        author: document['author'],
-        publishDate: document['publishdate']);
+        publishDate: document['publishdate'],
+        author: document['author']);
   }
 }
