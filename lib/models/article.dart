@@ -6,6 +6,7 @@ class Article {
   final String subHeader;
   final String body;
   final String imageUrl;
+  final String articleUrl;
   final String author;
   final Timestamp publishDate;
 
@@ -15,6 +16,7 @@ class Article {
       this.subHeader,
       this.body,
       this.imageUrl,
+      this.articleUrl,
       this.author,
       this.publishDate});
 
@@ -24,6 +26,7 @@ class Article {
         header: document['header'],
         body: document['body'],
         imageUrl: document['imageurl'],
+        articleUrl: document['articleurl'],
         publishDate: document['publishdate'],
         author: document['author']);
   }

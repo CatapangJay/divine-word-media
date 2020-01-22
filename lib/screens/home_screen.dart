@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:share/share.dart';
 
 import 'article_screen.dart';
 
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Article> articles = [];
   bool isLoading = false; // track if products fetching
   bool hasMore = true; // flag for more products available or not
-  int documentLimit = 10; // documents to be fetched per request
+  int documentLimit = 2; // documents to be fetched per request
   DocumentSnapshot
       lastDocument; // flag for last document from where next 10 records to be fetched
   ScrollController _scrollController =
@@ -82,6 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  void share(BuildContext context, Article article) {
+    final RenderBox box = context.findRenderObject();
+
+    Share.share("${article.articleUrl}",
+        subject: "Read about ${article.header}");
   }
 
   Card createCard(Article article) {
@@ -161,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: new Icon(
                         Icons.share,
                       )),
+                  onTap: () => share(context, article),
                 )
               ],
             ))
@@ -187,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? const Center(child: const CircularProgressIndicator())
                   : articles.length != 0
                       ? new ListView.builder(
+                          controller: _scrollController,
                           itemCount: articles.length,
                           padding: new EdgeInsets.all(8.0),
                           itemBuilder: (BuildContext context, int index) {

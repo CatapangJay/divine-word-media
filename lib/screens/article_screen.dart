@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:divine_word_app/models/article.dart';
 import 'package:flutter/rendering.dart';
+import 'package:share/share.dart';
 
 class ArticleScreen extends StatefulWidget {
   Article _article;
@@ -50,6 +51,13 @@ class _ArticleScreenState extends State<ArticleScreen> {
     super.dispose();
   }
 
+  void share(BuildContext context) {
+    final RenderBox box = context.findRenderObject();
+
+    Share.share("${_article.articleUrl}",
+        subject: "Read about ${_article.header}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -75,6 +83,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   child: new Icon(
                     Icons.share,
                   )),
+              onTap: () => share(context),
             ),
           ],
           backgroundColor: Theme.of(context).appBarTheme.color,
@@ -98,7 +107,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                     padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 3.0),
                     child: new Text(
                       _article.header,
-                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
