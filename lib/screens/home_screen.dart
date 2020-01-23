@@ -33,14 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
       double currentScroll = _scrollController.position.pixels;
       double delta = MediaQuery.of(context).size.height * 0.20;
       if (maxScroll - currentScroll <= delta) {
-        getArticles();
+        _getArticles();
       }
     });
     super.initState();
-    this.getArticles();
+    this._getArticles();
   }
 
-  Future getArticles() async {
+  Future _getArticles() async {
     if (!hasMore) {
       print('No More Products');
       return;
@@ -83,6 +83,16 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  Future _getMoreArticles() async {
+    print("Get More Articles Called!");
+    QuerySnapshot querySnapshot = await firestore
+        .collection('articles')
+        .orderBy('publishdate', descending: true)
+        .startAfterDocument(lastDocument)
+        .limit(documentLimit)
+        .getDocuments();
   }
 
   void share(BuildContext context, Article article) {
