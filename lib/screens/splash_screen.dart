@@ -39,9 +39,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image(
-                        image: AssetImage('assets/images/DIVINEWORD.png'),
-                      ),
+                      Text("DIVINE WORD MEDIA")
+//                      Image(
+//                        image: AssetImage('assets/images/DIVINEWORD.png'),
+//                      ),
                     ],
                   ),
                 ),
