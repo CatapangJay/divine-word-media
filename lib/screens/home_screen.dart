@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Article> articles = [];
   bool isLoading = false; // track if products fetching
   bool hasMore = true; // flag for more products available or not
-  int documentLimit = 2; // documents to be fetched per request
+  int documentLimit = 10; // documents to be fetched per request
   DocumentSnapshot
       lastDocument; // flag for last document from where next 10 records to be fetched
   ScrollController _scrollController =
@@ -58,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .orderBy('publishdate', descending: true)
           .limit(documentLimit)
           .getDocuments();
+      print('first query');
     } else {
       querySnapshot = await firestore
           .collection('articles')
@@ -65,15 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
           .startAfterDocument(lastDocument)
           .limit(documentLimit)
           .getDocuments();
+      print('has last document');
     }
 
-    if (querySnapshot.documents.length < documentLimit) {
+    if (querySnapshot.documents.length == 0) {
       hasMore = false;
     }
 
-    lastDocument = querySnapshot.documents[querySnapshot.documents.length - 1];
-    for (var doc in querySnapshot.documents) {
-      articles.add(Article.fromDocument(doc));
+    if (hasMore) {
+      lastDocument =
+      querySnapshot.documents[querySnapshot.documents.length - 1];
+      for (var doc in querySnapshot.documents) {
+        articles.add(Article.fromDocument(doc));
+      }
     }
 //    articles.addAll(querySnapshot.documents);
 //    for (var article in articles) {
@@ -202,45 +207,96 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: <Widget>[
             new Expanded(
-              child: isLoading
-                  ? const Center(child: const CircularProgressIndicator())
-                  : articles.length != 0
-                      ? new ListView.builder(
-                          controller: _scrollController,
-                          itemCount: articles.length,
-                          padding: new EdgeInsets.all(8.0),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(new DateFormat('EEEE, MMMM d').format(
-                                    articles[index].publishDate.toDate())),
-                                Container(
-                                    height: 330.0,
-                                    child: createCard(articles[index])),
-                              ],
-                            );
-                          })
-                      : new Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Column(
-                              children: <Widget>[
-                                new Icon(Icons.chrome_reader_mode,
-                                    color: Colors.grey, size: 60),
-                                new Text(
-                                  "No articles available",
-                                  style: new TextStyle(
-                                      fontSize: 15.0, color: Colors.grey),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-            ),
+                child: articles.length == 0
+                    ? new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Column(
+                      children: <Widget>[
+                        new Icon(Icons.chrome_reader_mode,
+                            color: Colors.grey, size: 60),
+                        new Text(
+                          "No articles available",
+                          style: new TextStyle(
+                              fontSize: 15.0, color: Colors.grey),
+                        )
+                      ],
+                    )
+                  ],
+                )
+                    : new ListView.builder(
+                    controller: _scrollController,
+                    itemCount: articles.length,
+                    padding: new EdgeInsets.all(8.0),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(new DateFormat('EEEE, MMMM d').format(
+                              articles[index].publishDate.toDate())),
+                          Container(
+                              height: 330.0,
+                              child: createCard(articles[index])),
+                        ],
+                      );
+                    })),
+            isLoading
+                ? const Center(child: const CircularProgressIndicator())
+                : Container()
           ],
         ),
       ),
     );
   }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      backgroundColor: Theme.of(context).backgroundColor,
+//      resizeToAvoidBottomPadding: false,
+//      body: Center(
+//        child: Column(
+//          children: <Widget>[
+//            new Expanded(
+//              child: isLoading
+//                  ? const Center(child: const CircularProgressIndicator())
+//                  : articles.length != 0
+//                      ? new ListView.builder(
+//                          controller: _scrollController,
+//                          itemCount: articles.length,
+//                          padding: new EdgeInsets.all(8.0),
+//                          itemBuilder: (BuildContext context, int index) {
+//                            return Column(
+//                              crossAxisAlignment: CrossAxisAlignment.start,
+//                              children: <Widget>[
+//                                Text(new DateFormat('EEEE, MMMM d').format(
+//                                    articles[index].publishDate.toDate())),
+//                                Container(
+//                                    height: 330.0,
+//                                    child: createCard(articles[index])),
+//                              ],
+//                            );
+//                          })
+//                      : new Column(
+//                          mainAxisAlignment: MainAxisAlignment.center,
+//                          children: <Widget>[
+//                            new Column(
+//                              children: <Widget>[
+//                                new Icon(Icons.chrome_reader_mode,
+//                                    color: Colors.grey, size: 60),
+//                                new Text(
+//                                  "No articles available",
+//                                  style: new TextStyle(
+//                                      fontSize: 15.0, color: Colors.grey),
+//                                )
+//                              ],
+//                            )
+//                          ],
+//                        ),
+//            ),
+//          ],
+//        ),
+//      ),
+//    );
+//  }
 }
